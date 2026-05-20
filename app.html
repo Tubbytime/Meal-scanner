@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0a0a0a">
+<title>Plate — Meal Scanner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f1ea;
+    --bg-card: #ffffff;
+    --ink: #1a1612;
+    --ink-soft: #6b6258;
+    --accent: #c8553d;
+    --accent-soft: #e8a87c;
+    --green: #5a7a3e;
+    --line: #d9d1c0;
+    --shadow: 0 1px 2px rgba(26,22,18,0.04), 0 8px 24px rgba(26,22,18,0.06);
+  }
+
+- { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+background: var(–bg);
+color: var(–ink);
+font-family: ‘Fraunces’, Georgia, serif;
+font-feature-settings: “ss01”, “ss02”;
+-webkit-font-smoothing: antialiased;
+min-height: 100vh;
+overscroll-behavior: none;
+}
+
+body {
+background-image:
+radial-gradient(circle at 20% 10%, rgba(200,85,61,0.04), transparent 40%),
+radial-gradient(circle at 80% 90%, rgba(90,122,62,0.04), transparent 40%);
+}
+
+.app {
+max-width: 480px;
+margin: 0 auto;
+padding: 24px 20px 80px;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+}
+
+header {
+display: flex;
+align-items: baseline;
+justify-content: space-between;
+margin-bottom: 32px;
+padding-top: 12px;
+}
+
+.logo {
+font-size: 32px;
+font-weight: 500;
+letter-spacing: -0.03em;
+font-style: italic;
+}
+.logo::after {
+content: ‘.’;
+color: var(–accent);
+}
+
+.tagline {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 10px;
+color: var(–ink-soft);
+text-transform: uppercase;
+letter-spacing: 0.15em;
+}
+
+/* === CAPTURE STATE === */
+.capture-zone {
+flex: 1;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 32px;
+padding: 40px 0;
+}
+
+.capture-art {
+width: 200px;
+height: 200px;
+position: relative;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.capture-art::before {
+content: ‘’;
+position: absolute;
+inset: 0;
+border: 1px dashed var(–line);
+border-radius: 50%;
+animation: rotate 60s linear infinite;
+}
+
+@keyframes rotate {
+to { transform: rotate(360deg); }
+}
+
+.capture-art svg {
+width: 120px;
+height: 120px;
+}
+
+.hero-text {
+text-align: center;
+max-width: 320px;
+}
+
+.hero-text h1 {
+font-size: 36px;
+font-weight: 400;
+line-height: 1.05;
+letter-spacing: -0.025em;
+margin-bottom: 12px;
+}
+.hero-text h1 em {
+font-style: italic;
+color: var(–accent);
+font-weight: 500;
+}
+
+.hero-text p {
+font-size: 15px;
+color: var(–ink-soft);
+line-height: 1.5;
+}
+
+.actions {
+display: flex;
+flex-direction: column;
+gap: 10px;
+width: 100%;
+max-width: 320px;
+}
+
+.btn {
+border: none;
+cursor: pointer;
+font-family: inherit;
+font-size: 16px;
+padding: 16px 24px;
+border-radius: 14px;
+transition: transform 0.15s ease, background 0.2s ease;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 10px;
+font-weight: 500;
+}
+.btn:active { transform: scale(0.97); }
+
+.btn-primary {
+background: var(–ink);
+color: var(–bg);
+}
+.btn-secondary {
+background: transparent;
+color: var(–ink);
+border: 1px solid var(–line);
+}
+
+.btn svg { width: 20px; height: 20px; }
+
+/* === LOADING STATE === */
+.loading {
+flex: 1;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 24px;
+padding: 40px 0;
+}
+
+.loading-image {
+width: 200px;
+height: 200px;
+border-radius: 20px;
+object-fit: cover;
+box-shadow: var(–shadow);
+filter: saturate(0.9);
+}
+
+.loading-text {
+text-align: center;
+}
+.loading-text .status {
+font-size: 22px;
+font-style: italic;
+color: var(–ink);
+margin-bottom: 8px;
+}
+.loading-text .step {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 11px;
+text-transform: uppercase;
+letter-spacing: 0.15em;
+color: var(–ink-soft);
+}
+
+.dots {
+display: inline-flex;
+gap: 4px;
+margin-left: 4px;
+}
+.dots span {
+width: 4px;
+height: 4px;
+border-radius: 50%;
+background: var(–accent);
+animation: pulse 1.4s ease-in-out infinite;
+}
+.dots span:nth-child(2) { animation-delay: 0.2s; }
+.dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes pulse {
+0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+40% { opacity: 1; transform: scale(1.2); }
+}
+
+/* === RESULTS STATE === */
+.results {
+display: flex;
+flex-direction: column;
+gap: 16px;
+animation: fadeUp 0.5s ease;
+}
+
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(12px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+.result-hero {
+background: var(–bg-card);
+border-radius: 20px;
+overflow: hidden;
+box-shadow: var(–shadow);
+}
+
+.result-image-wrap {
+position: relative;
+aspect-ratio: 16 / 10;
+overflow: hidden;
+}
+.result-image-wrap img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+.result-image-wrap::after {
+content: ‘’;
+position: absolute;
+inset: 0;
+background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.5));
+}
+
+.meal-title {
+position: absolute;
+bottom: 16px;
+left: 20px;
+right: 20px;
+color: white;
+font-size: 26px;
+font-weight: 500;
+letter-spacing: -0.02em;
+line-height: 1.1;
+z-index: 1;
+font-style: italic;
+}
+
+.calorie-strip {
+padding: 20px 24px;
+display: flex;
+justify-content: space-between;
+align-items: baseline;
+border-top: 1px solid var(–line);
+}
+.calorie-label {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 10px;
+text-transform: uppercase;
+letter-spacing: 0.15em;
+color: var(–ink-soft);
+}
+.calorie-value {
+font-size: 42px;
+font-weight: 500;
+letter-spacing: -0.03em;
+}
+.calorie-value .unit {
+font-size: 14px;
+color: var(–ink-soft);
+font-weight: 400;
+margin-left: 4px;
+}
+
+.macros {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 10px;
+}
+
+.macro {
+background: var(–bg-card);
+border-radius: 16px;
+padding: 16px 14px;
+box-shadow: var(–shadow);
+position: relative;
+overflow: hidden;
+}
+
+.macro::before {
+content: ‘’;
+position: absolute;
+top: 0; left: 0; right: 0;
+height: 3px;
+}
+.macro.protein::before { background: var(–accent); }
+.macro.carbs::before { background: var(–accent-soft); }
+.macro.fat::before { background: var(–green); }
+
+.macro-label {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 9px;
+text-transform: uppercase;
+letter-spacing: 0.15em;
+color: var(–ink-soft);
+margin-bottom: 8px;
+}
+.macro-value {
+font-size: 24px;
+font-weight: 500;
+letter-spacing: -0.02em;
+line-height: 1;
+}
+.macro-value .unit {
+font-size: 11px;
+color: var(–ink-soft);
+font-weight: 400;
+margin-left: 2px;
+}
+.macro-pct {
+font-size: 11px;
+color: var(–ink-soft);
+margin-top: 4px;
+font-family: ‘JetBrains Mono’, monospace;
+}
+
+.section {
+background: var(–bg-card);
+border-radius: 16px;
+padding: 20px;
+box-shadow: var(–shadow);
+}
+
+.section-title {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 10px;
+text-transform: uppercase;
+letter-spacing: 0.15em;
+color: var(–ink-soft);
+margin-bottom: 14px;
+}
+
+.food-item {
+display: flex;
+justify-content: space-between;
+align-items: baseline;
+padding: 10px 0;
+border-bottom: 1px solid var(–line);
+gap: 12px;
+}
+.food-item:last-child { border-bottom: none; padding-bottom: 0; }
+.food-item:first-child { padding-top: 0; }
+
+.food-name {
+font-size: 16px;
+flex: 1;
+}
+.food-amount {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 12px;
+color: var(–ink-soft);
+}
+.food-cal {
+font-size: 14px;
+font-weight: 500;
+text-align: right;
+min-width: 60px;
+}
+
+.micros-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 10px 16px;
+}
+.micro {
+display: flex;
+justify-content: space-between;
+font-size: 13px;
+padding: 4px 0;
+}
+.micro-label { color: var(–ink-soft); }
+.micro-value { font-family: ‘JetBrains Mono’, monospace; }
+
+.confidence-note {
+font-size: 12px;
+color: var(–ink-soft);
+font-style: italic;
+line-height: 1.4;
+padding: 12px 16px;
+background: rgba(200,85,61,0.06);
+border-radius: 10px;
+}
+
+.bottom-actions {
+display: flex;
+flex-direction: column;
+gap: 10px;
+margin-top: 8px;
+}
+
+.copy-feedback {
+text-align: center;
+font-size: 13px;
+color: var(–green);
+font-family: ‘JetBrains Mono’, monospace;
+text-transform: uppercase;
+letter-spacing: 0.1em;
+height: 16px;
+}
+
+/* === ERROR STATE === */
+.error {
+background: rgba(200,85,61,0.08);
+border: 1px solid rgba(200,85,61,0.2);
+border-radius: 14px;
+padding: 16px 20px;
+color: var(–accent);
+font-size: 14px;
+line-height: 1.5;
+}
+
+/* === API KEY SETUP === */
+.setup {
+background: var(–bg-card);
+border-radius: 16px;
+padding: 24px;
+box-shadow: var(–shadow);
+margin-bottom: 16px;
+}
+.setup h3 {
+font-size: 20px;
+font-weight: 500;
+margin-bottom: 8px;
+letter-spacing: -0.02em;
+}
+.setup p {
+font-size: 13px;
+color: var(–ink-soft);
+line-height: 1.5;
+margin-bottom: 14px;
+}
+.setup input {
+width: 100%;
+padding: 12px 14px;
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 13px;
+border: 1px solid var(–line);
+border-radius: 10px;
+background: var(–bg);
+color: var(–ink);
+margin-bottom: 12px;
+}
+.setup input:focus { outline: 2px solid var(–accent); outline-offset: -1px; border-color: transparent; }
+.setup .small {
+font-size: 11px;
+color: var(–ink-soft);
+margin-top: 10px;
+}
+.setup .small a { color: var(–accent); }
+
+.hidden { display: none !important; }
+
+/* hidden file input */
+#fileInput { display: none; }
+</style>
+
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="logo">Plate</div>
+    <div class="tagline">AI Meal Analysis</div>
+  </header>
+
+  <!-- SETUP / API KEY -->
+
+  <div id="setupView" class="setup hidden">
+    <h3>One-time setup</h3>
+    <p>Paste your Anthropic API key. It's stored only on this device and never sent anywhere except Anthropic.</p>
+    <input id="apiKeyInput" type="password" placeholder="sk-ant-..." autocomplete="off">
+    <button class="btn btn-primary" id="saveKeyBtn">Save & Continue</button>
+    <p class="small">Get a key at <a href="https://console.anthropic.com/settings/keys" target="_blank">console.anthropic.com</a>. Typical cost: ~$0.01 per meal scan.</p>
+  </div>
+
+  <!-- CAPTURE -->
+
+  <div id="captureView" class="capture-zone hidden">
+    <div class="capture-art">
+      <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="60" cy="60" r="42" />
+        <circle cx="60" cy="60" r="30" stroke-dasharray="3 4" />
+        <path d="M45 55 Q50 48 55 55 T65 55 Q70 48 75 55" stroke="var(--accent)" stroke-width="2" fill="none"/>
+        <circle cx="48" cy="65" r="2" fill="var(--green)"/>
+        <circle cx="72" cy="68" r="2.5" fill="var(--accent-soft)"/>
+        <circle cx="60" cy="70" r="2" fill="var(--accent)"/>
+      </svg>
+    </div>
+    <div class="hero-text">
+      <h1>What's on your <em>plate?</em></h1>
+      <p>Snap a photo and get calories, macros, and a full breakdown in seconds.</p>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary" id="cameraBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        Take Photo
+      </button>
+      <button class="btn btn-secondary" id="uploadBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Upload Image
+      </button>
+    </div>
+  </div>
+
+  <!-- LOADING -->
+
+  <div id="loadingView" class="loading hidden">
+    <img id="loadingImage" class="loading-image" alt="">
+    <div class="loading-text">
+      <div class="status"><em id="loadingStatus">Analyzing your meal</em></div>
+      <div class="step">
+        <span id="loadingStep">Identifying ingredients</span>
+        <span class="dots"><span></span><span></span><span></span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+
+  <div id="resultsView" class="results hidden"></div>
+
+  <input type="file" id="fileInput" accept="image/*" capture="environment">
+</div>
+
+<script>
+const STORAGE_KEY = 'plate_api_key_v1';
+
+// ---------- View management ----------
+const views = {
+  setup: document.getElementById('setupView'),
+  capture: document.getElementById('captureView'),
+  loading: document.getElementById('loadingView'),
+  results: document.getElementById('resultsView'),
+};
+function show(name) {
+  Object.entries(views).forEach(([k, el]) => el.classList.toggle('hidden', k !== name));
+}
+
+// ---------- API key ----------
+function getKey() { return localStorage.getItem(STORAGE_KEY); }
+function setKey(k) { localStorage.setItem(STORAGE_KEY, k); }
+
+document.getElementById('saveKeyBtn').addEventListener('click', () => {
+  const v = document.getElementById('apiKeyInput').value.trim();
+  if (!v.startsWith('sk-ant-')) {
+    alert('That doesn\'t look like an Anthropic API key (should start with sk-ant-)');
+    return;
+  }
+  setKey(v);
+  show('capture');
+});
+
+// ---------- Capture buttons ----------
+const fileInput = document.getElementById('fileInput');
+document.getElementById('cameraBtn').addEventListener('click', () => {
+  fileInput.setAttribute('capture', 'environment');
+  fileInput.click();
+});
+document.getElementById('uploadBtn').addEventListener('click', () => {
+  fileInput.removeAttribute('capture');
+  fileInput.click();
+});
+
+fileInput.addEventListener('change', async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  await analyzeImage(file);
+  fileInput.value = '';
+});
+
+// ---------- Image processing ----------
+function fileToDataURL(file) {
+  return new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve(r.result);
+    r.onerror = () => reject(new Error('Could not read file'));
+    r.readAsDataURL(file);
+  });
+}
+
+async function resizeImage(dataURL, maxDim = 1568) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      let { width, height } = img;
+      if (width > maxDim || height > maxDim) {
+        const ratio = Math.min(maxDim / width, maxDim / height);
+        width = Math.round(width * ratio);
+        height = Math.round(height * ratio);
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+      resolve(canvas.toDataURL('image/jpeg', 0.85));
+    };
+    img.src = dataURL;
+  });
+}
+
+// ---------- Analysis ----------
+const ANALYSIS_PROMPT = `You are a precise nutrition analyst. Examine this meal photo and respond with ONLY a valid JSON object (no markdown, no preamble) matching this schema exactly:
+
+{
+  "meal_name": "short descriptive name of the meal (3-5 words)",
+  "confidence": "high" | "medium" | "low",
+  "confidence_note": "one sentence explaining any uncertainty, or empty string if confident",
+  "foods": [
+    {
+      "name": "specific food name",
+      "amount": "visible portion estimate with units (e.g. '1 cup', '4 oz', '~150g')",
+      "calories": number
+    }
+  ],
+  "totals": {
+    "calories": number,
+    "protein_g": number,
+    "carbs_g": number,
+    "fat_g": number,
+    "fiber_g": number,
+    "sugar_g": number,
+    "sodium_mg": number
+  }
+}
+
+Rules:
+- Estimate portions visually based on plate size, utensils, and common serving sizes
+- Be specific (e.g. "grilled chicken breast" not "chicken", "white jasmine rice" not "rice")
+- Round calories to nearest 5, macros to nearest 1g, sodium to nearest 10mg
+- Foods array should list every distinct visible component
+- Sum of food calories should approximately equal totals.calories
+- Use "low" confidence if the image is blurry, poorly lit, or ambiguous`;
+
+async function callClaude(base64Data, mediaType) {
+  const key = getKey();
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': key,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true',
+    },
+    body: JSON.stringify({
+      model: 'claude-opus-4-7',
+      max_tokens: 1500,
+      messages: [{
+        role: 'user',
+        content: [
+          { type: 'image', source: { type: 'base64', media_type: mediaType, data: base64Data } },
+          { type: 'text', text: ANALYSIS_PROMPT }
+        ]
+      }]
+    })
+  });
+  if (!res.ok) {
+    const errText = await res.text();
+    throw new Error(`API error (${res.status}): ${errText.slice(0, 200)}`);
+  }
+  const data = await res.json();
+  const text = data.content.map(b => b.type === 'text' ? b.text : '').join('').trim();
+  // strip code fences if present
+  const cleaned = text.replace(/^```(?:json)?\s*/i, '').replace(/\s*```\s*$/, '');
+  return JSON.parse(cleaned);
+}
+
+async function analyzeImage(file) {
+  show('loading');
+  const loadingImg = document.getElementById('loadingImage');
+  const stepEl = document.getElementById('loadingStep');
+
+  try {
+    stepEl.textContent = 'Processing image';
+    const rawDataURL = await fileToDataURL(file);
+    loadingImg.src = rawDataURL;
+
+    const resizedDataURL = await resizeImage(rawDataURL);
+    const [meta, base64] = resizedDataURL.split(',');
+    const mediaType = meta.match(/data:(.*?);/)[1];
+
+    stepEl.textContent = 'Identifying ingredients';
+    await new Promise(r => setTimeout(r, 300)); // smooth transition
+
+    stepEl.textContent = 'Estimating portions';
+    const result = await callClaude(base64, mediaType);
+
+    stepEl.textContent = 'Calculating nutrition';
+    await new Promise(r => setTimeout(r, 200));
+
+    renderResults(result, resizedDataURL);
+  } catch (err) {
+    renderError(err);
+  }
+}
+
+// ---------- Rendering ----------
+function renderError(err) {
+  const view = views.results;
+  const isAuth = /401|invalid.*api.*key|authentication/i.test(err.message);
+  view.innerHTML = `
+    <div class="error">
+      <strong>${isAuth ? 'API key problem' : 'Something went wrong'}</strong><br>
+      ${err.message}
+    </div>
+    <div class="bottom-actions">
+      ${isAuth ? '<button class="btn btn-secondary" id="resetKeyBtn">Reset API Key</button>' : ''}
+      <button class="btn btn-primary" id="tryAgainBtn">Try Again</button>
+    </div>
+  `;
+  show('results');
+  document.getElementById('tryAgainBtn').addEventListener('click', () => show('capture'));
+  const rk = document.getElementById('resetKeyBtn');
+  if (rk) rk.addEventListener('click', () => {
+    localStorage.removeItem(STORAGE_KEY);
+    document.getElementById('apiKeyInput').value = '';
+    show('setup');
+  });
+}
+
+function renderResults(r, imgURL) {
+  const view = views.results;
+  const t = r.totals;
+  const totalMacroCals = t.protein_g * 4 + t.carbs_g * 4 + t.fat_g * 9;
+  const pctP = totalMacroCals ? Math.round(t.protein_g * 4 / totalMacroCals * 100) : 0;
+  const pctC = totalMacroCals ? Math.round(t.carbs_g * 4 / totalMacroCals * 100) : 0;
+  const pctF = totalMacroCals ? Math.round(t.fat_g * 9 / totalMacroCals * 100) : 0;
+
+  view.innerHTML = `
+    <div class="result-hero">
+      <div class="result-image-wrap">
+        <img src="${imgURL}" alt="">
+        <div class="meal-title">${escapeHtml(r.meal_name)}</div>
+      </div>
+      <div class="calorie-strip">
+        <span class="calorie-label">Total Energy</span>
+        <span class="calorie-value">${t.calories}<span class="unit">kcal</span></span>
+      </div>
+    </div>
+
+    <div class="macros">
+      <div class="macro protein">
+        <div class="macro-label">Protein</div>
+        <div class="macro-value">${t.protein_g}<span class="unit">g</span></div>
+        <div class="macro-pct">${pctP}%</div>
+      </div>
+      <div class="macro carbs">
+        <div class="macro-label">Carbs</div>
+        <div class="macro-value">${t.carbs_g}<span class="unit">g</span></div>
+        <div class="macro-pct">${pctC}%</div>
+      </div>
+      <div class="macro fat">
+        <div class="macro-label">Fat</div>
+        <div class="macro-value">${t.fat_g}<span class="unit">g</span></div>
+        <div class="macro-pct">${pctF}%</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Breakdown</div>
+      ${r.foods.map(f => `
+        <div class="food-item">
+          <div>
+            <div class="food-name">${escapeHtml(f.name)}</div>
+            <div class="food-amount">${escapeHtml(f.amount)}</div>
+          </div>
+          <div class="food-cal">${f.calories} kcal</div>
+        </div>
+      `).join('')}
+    </div>
+
+    <div class="section">
+      <div class="section-title">Other Nutrients</div>
+      <div class="micros-grid">
+        <div class="micro"><span class="micro-label">Fiber</span><span class="micro-value">${t.fiber_g} g</span></div>
+        <div class="micro"><span class="micro-label">Sugar</span><span class="micro-value">${t.sugar_g} g</span></div>
+        <div class="micro"><span class="micro-label">Sodium</span><span class="micro-value">${t.sodium_mg} mg</span></div>
+        <div class="micro"><span class="micro-label">Confidence</span><span class="micro-value">${r.confidence}</span></div>
+      </div>
+    </div>
+
+    ${r.confidence_note ? `<div class="confidence-note">${escapeHtml(r.confidence_note)}</div>` : ''}
+
+    <div class="bottom-actions">
+      <button class="btn btn-secondary" id="copyBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copy for MyNetDiary
+      </button>
+      <div class="copy-feedback" id="copyFeedback"></div>
+      <button class="btn btn-primary" id="scanAgainBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        Scan Another Meal
+      </button>
+    </div>
+  `;
+  show('results');
+
+  document.getElementById('scanAgainBtn').addEventListener('click', () => show('capture'));
+  document.getElementById('copyBtn').addEventListener('click', () => copyForMyNetDiary(r));
+}
+
+function copyForMyNetDiary(r) {
+  const t = r.totals;
+  const lines = [
+    `${r.meal_name}`,
+    `Total: ${t.calories} kcal | P: ${t.protein_g}g | C: ${t.carbs_g}g | F: ${t.fat_g}g`,
+    `Fiber: ${t.fiber_g}g | Sugar: ${t.sugar_g}g | Sodium: ${t.sodium_mg}mg`,
+    ``,
+    `Items:`,
+    ...r.foods.map(f => `- ${f.name} (${f.amount}) — ${f.calories} kcal`),
+  ];
+  const text = lines.join('\n');
+  const fb = document.getElementById('copyFeedback');
+  navigator.clipboard.writeText(text).then(() => {
+    fb.textContent = '✓ Copied — paste into MyNetDiary';
+    setTimeout(() => fb.textContent = '', 3000);
+  }).catch(() => {
+    fb.textContent = 'Copy failed';
+  });
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// ---------- Init ----------
+if (getKey()) {
+  show('capture');
+} else {
+  show('setup');
+}
+</script>
+
+</body>
+</html>
