@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -24,493 +23,758 @@
     --shadow: 0 1px 2px rgba(26,22,18,0.04), 0 8px 24px rgba(26,22,18,0.06);
   }
 
-- { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
-html, body {
-background: var(–bg);
-color: var(–ink);
-font-family: ‘Fraunces’, Georgia, serif;
-font-feature-settings: “ss01”, “ss02”;
--webkit-font-smoothing: antialiased;
-min-height: 100vh;
-overscroll-behavior: none;
-}
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Fraunces', Georgia, serif;
+    font-feature-settings: "ss01", "ss02";
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    overscroll-behavior: none;
+  }
 
-body {
-background-image:
-radial-gradient(circle at 20% 10%, rgba(200,85,61,0.04), transparent 40%),
-radial-gradient(circle at 80% 90%, rgba(90,122,62,0.04), transparent 40%);
-}
+  body {
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(200,85,61,0.04), transparent 40%),
+      radial-gradient(circle at 80% 90%, rgba(90,122,62,0.04), transparent 40%);
+  }
 
-.app {
-max-width: 480px;
-margin: 0 auto;
-padding: 24px 20px 80px;
-min-height: 100vh;
-display: flex;
-flex-direction: column;
-}
+  .app {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 24px 20px 80px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
 
-header {
-display: flex;
-align-items: baseline;
-justify-content: space-between;
-margin-bottom: 32px;
-padding-top: 12px;
-}
+  header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    padding-top: 12px;
+  }
 
-.logo {
-font-size: 32px;
-font-weight: 500;
-letter-spacing: -0.03em;
-font-style: italic;
-}
-.logo::after {
-content: ‘.’;
-color: var(–accent);
-}
+  .logo {
+    font-size: 32px;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    font-style: italic;
+  }
+  .logo::after {
+    content: '.';
+    color: var(--accent);
+  }
 
-.tagline {
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 10px;
-color: var(–ink-soft);
-text-transform: uppercase;
-letter-spacing: 0.15em;
-}
+  .tagline {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
 
-/* === CAPTURE STATE === */
-.capture-zone {
-flex: 1;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-gap: 32px;
-padding: 40px 0;
-}
+  /* === CAPTURE STATE === */
+  .capture-zone {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    padding: 40px 0;
+  }
 
-.capture-art {
-width: 200px;
-height: 200px;
-position: relative;
-display: flex;
-align-items: center;
-justify-content: center;
-}
+  .capture-art {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-.capture-art::before {
-content: ‘’;
-position: absolute;
-inset: 0;
-border: 1px dashed var(–line);
-border-radius: 50%;
-animation: rotate 60s linear infinite;
-}
+  .capture-art::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px dashed var(--line);
+    border-radius: 50%;
+    animation: rotate 60s linear infinite;
+  }
 
-@keyframes rotate {
-to { transform: rotate(360deg); }
-}
+  @keyframes rotate {
+    to { transform: rotate(360deg); }
+  }
 
-.capture-art svg {
-width: 120px;
-height: 120px;
-}
+  .capture-art svg {
+    width: 120px;
+    height: 120px;
+  }
 
-.hero-text {
-text-align: center;
-max-width: 320px;
-}
+  .hero-text {
+    text-align: center;
+    max-width: 320px;
+  }
 
-.hero-text h1 {
-font-size: 36px;
-font-weight: 400;
-line-height: 1.05;
-letter-spacing: -0.025em;
-margin-bottom: 12px;
-}
-.hero-text h1 em {
-font-style: italic;
-color: var(–accent);
-font-weight: 500;
-}
+  .hero-text h1 {
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin-bottom: 12px;
+  }
+  .hero-text h1 em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 500;
+  }
 
-.hero-text p {
-font-size: 15px;
-color: var(–ink-soft);
-line-height: 1.5;
-}
+  .hero-text p {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
 
-.actions {
-display: flex;
-flex-direction: column;
-gap: 10px;
-width: 100%;
-max-width: 320px;
-}
+  .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 320px;
+  }
 
-.btn {
-border: none;
-cursor: pointer;
-font-family: inherit;
-font-size: 16px;
-padding: 16px 24px;
-border-radius: 14px;
-transition: transform 0.15s ease, background 0.2s ease;
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 10px;
-font-weight: 500;
-}
-.btn:active { transform: scale(0.97); }
+  .btn {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 16px;
+    padding: 16px 24px;
+    border-radius: 14px;
+    transition: transform 0.15s ease, background 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-weight: 500;
+  }
+  .btn:active { transform: scale(0.97); }
 
-.btn-primary {
-background: var(–ink);
-color: var(–bg);
-}
-.btn-secondary {
-background: transparent;
-color: var(–ink);
-border: 1px solid var(–line);
-}
+  .btn-primary {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--line);
+  }
 
-.btn svg { width: 20px; height: 20px; }
+  .btn svg { width: 20px; height: 20px; }
 
-/* === LOADING STATE === */
-.loading {
-flex: 1;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-gap: 24px;
-padding: 40px 0;
-}
+  /* === HISTORY === */
+  .history {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: fadeUp 0.4s ease;
+  }
 
-.loading-image {
-width: 200px;
-height: 200px;
-border-radius: 20px;
-object-fit: cover;
-box-shadow: var(–shadow);
-filter: saturate(0.9);
-}
+  .history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+  .history-header h2 {
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    font-style: italic;
+  }
+  .history-header h2 em {
+    color: var(--accent);
+    font-weight: 600;
+  }
 
-.loading-text {
-text-align: center;
-}
-.loading-text .status {
-font-size: 22px;
-font-style: italic;
-color: var(–ink);
-margin-bottom: 8px;
-}
-.loading-text .step {
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 11px;
-text-transform: uppercase;
-letter-spacing: 0.15em;
-color: var(–ink-soft);
-}
+  .day-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
 
-.dots {
-display: inline-flex;
-gap: 4px;
-margin-left: 4px;
-}
-.dots span {
-width: 4px;
-height: 4px;
-border-radius: 50%;
-background: var(–accent);
-animation: pulse 1.4s ease-in-out infinite;
-}
-.dots span:nth-child(2) { animation-delay: 0.2s; }
-.dots span:nth-child(3) { animation-delay: 0.4s; }
-@keyframes pulse {
-0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
-40% { opacity: 1; transform: scale(1.2); }
-}
+  .day-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0 4px;
+    margin-top: 8px;
+  }
+  .day-header .day-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--ink-soft);
+  }
+  .day-header .day-totals {
+    font-size: 12px;
+    color: var(--ink-soft);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .day-header .day-totals strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
 
-/* === RESULTS STATE === */
-.results {
-display: flex;
-flex-direction: column;
-gap: 16px;
-animation: fadeUp 0.5s ease;
-}
+  .meal-card {
+    background: var(--bg-card);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    display: flex;
+    gap: 12px;
+    padding: 10px;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+    position: relative;
+  }
+  .meal-card:active { transform: scale(0.98); }
 
-@keyframes fadeUp {
-from { opacity: 0; transform: translateY(12px); }
-to { opacity: 1; transform: translateY(0); }
-}
+  .meal-thumb {
+    width: 64px;
+    height: 64px;
+    border-radius: 10px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: var(--bg);
+  }
 
-.result-hero {
-background: var(–bg-card);
-border-radius: 20px;
-overflow: hidden;
-box-shadow: var(–shadow);
-}
+  .meal-card-body {
+    flex: 1;
+    min-width: 0;
+  }
+  .meal-card-title {
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 2px;
+  }
+  .meal-card-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
 
-.result-image-wrap {
-position: relative;
-aspect-ratio: 16 / 10;
-overflow: hidden;
-}
-.result-image-wrap img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-}
-.result-image-wrap::after {
-content: ‘’;
-position: absolute;
-inset: 0;
-background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.5));
-}
+  .meal-delete {
+    border: none;
+    background: transparent;
+    color: var(--ink-soft);
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5;
+  }
+  .meal-delete:active { opacity: 1; background: rgba(200,85,61,0.1); color: var(--accent); }
+  .meal-delete svg { width: 16px; height: 16px; }
 
-.meal-title {
-position: absolute;
-bottom: 16px;
-left: 20px;
-right: 20px;
-color: white;
-font-size: 26px;
-font-weight: 500;
-letter-spacing: -0.02em;
-line-height: 1.1;
-z-index: 1;
-font-style: italic;
-}
+  .empty-history {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--ink-soft);
+  }
+  .empty-history h3 {
+    font-size: 22px;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .empty-history p {
+    font-size: 14px;
+    line-height: 1.5;
+  }
 
-.calorie-strip {
-padding: 20px 24px;
-display: flex;
-justify-content: space-between;
-align-items: baseline;
-border-top: 1px solid var(–line);
-}
-.calorie-label {
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 10px;
-text-transform: uppercase;
-letter-spacing: 0.15em;
-color: var(–ink-soft);
-}
-.calorie-value {
-font-size: 42px;
-font-weight: 500;
-letter-spacing: -0.03em;
-}
-.calorie-value .unit {
-font-size: 14px;
-color: var(–ink-soft);
-font-weight: 400;
-margin-left: 4px;
-}
+  /* Nav buttons in header */
+  .nav-icons {
+    display: flex;
+    gap: 6px;
+  }
+  .nav-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: var(--bg-card);
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+    position: relative;
+  }
+  .nav-btn:active { transform: scale(0.92); }
+  .nav-btn svg { width: 18px; height: 18px; }
+  .nav-btn .badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: var(--accent);
+    color: white;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    min-width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    padding: 0 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+  }
 
-.macros {
-display: grid;
-grid-template-columns: repeat(3, 1fr);
-gap: 10px;
-}
+  /* Adjust header layout */
+  header.with-nav {
+    align-items: center;
+  }
 
-.macro {
-background: var(–bg-card);
-border-radius: 16px;
-padding: 16px 14px;
-box-shadow: var(–shadow);
-position: relative;
-overflow: hidden;
-}
+  /* === PREVIEW STATE === */
+  .preview {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 8px 0 24px;
+    animation: fadeUp 0.3s ease;
+  }
 
-.macro::before {
-content: ‘’;
-position: absolute;
-top: 0; left: 0; right: 0;
-height: 3px;
-}
-.macro.protein::before { background: var(–accent); }
-.macro.carbs::before { background: var(–accent-soft); }
-.macro.fat::before { background: var(–green); }
+  .preview-image-wrap {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    background: var(--bg-card);
+  }
+  .preview-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
-.macro-label {
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 9px;
-text-transform: uppercase;
-letter-spacing: 0.15em;
-color: var(–ink-soft);
-margin-bottom: 8px;
-}
-.macro-value {
-font-size: 24px;
-font-weight: 500;
-letter-spacing: -0.02em;
-line-height: 1;
-}
-.macro-value .unit {
-font-size: 11px;
-color: var(–ink-soft);
-font-weight: 400;
-margin-left: 2px;
-}
-.macro-pct {
-font-size: 11px;
-color: var(–ink-soft);
-margin-top: 4px;
-font-family: ‘JetBrains Mono’, monospace;
-}
+  .notes-card {
+    background: var(--bg-card);
+    border-radius: 16px;
+    padding: 16px 18px;
+    box-shadow: var(--shadow);
+  }
 
-.section {
-background: var(–bg-card);
-border-radius: 16px;
-padding: 20px;
-box-shadow: var(–shadow);
-}
+  .notes-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+  }
+  .notes-label .lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--ink-soft);
+  }
+  .notes-label .optional {
+    font-size: 11px;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
 
-.section-title {
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 10px;
-text-transform: uppercase;
-letter-spacing: 0.15em;
-color: var(–ink-soft);
-margin-bottom: 14px;
-}
+  .notes-input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--ink);
+    resize: none;
+    min-height: 70px;
+    line-height: 1.4;
+    outline: none;
+  }
+  .notes-input::placeholder {
+    color: var(--ink-soft);
+    font-style: italic;
+    opacity: 0.7;
+  }
 
-.food-item {
-display: flex;
-justify-content: space-between;
-align-items: baseline;
-padding: 10px 0;
-border-bottom: 1px solid var(–line);
-gap: 12px;
-}
-.food-item:last-child { border-bottom: none; padding-bottom: 0; }
-.food-item:first-child { padding-top: 0; }
+  .notes-hints {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--line);
+    font-size: 11px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .notes-hints strong { color: var(--ink); font-weight: 500; }
 
-.food-name {
-font-size: 16px;
-flex: 1;
-}
-.food-amount {
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 12px;
-color: var(–ink-soft);
-}
-.food-cal {
-font-size: 14px;
-font-weight: 500;
-text-align: right;
-min-width: 60px;
-}
+  /* === LOADING STATE === */
+  .loading {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding: 40px 0;
+  }
 
-.micros-grid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 10px 16px;
-}
-.micro {
-display: flex;
-justify-content: space-between;
-font-size: 13px;
-padding: 4px 0;
-}
-.micro-label { color: var(–ink-soft); }
-.micro-value { font-family: ‘JetBrains Mono’, monospace; }
+  .loading-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 20px;
+    object-fit: cover;
+    box-shadow: var(--shadow);
+    filter: saturate(0.9);
+  }
 
-.confidence-note {
-font-size: 12px;
-color: var(–ink-soft);
-font-style: italic;
-line-height: 1.4;
-padding: 12px 16px;
-background: rgba(200,85,61,0.06);
-border-radius: 10px;
-}
+  .loading-text {
+    text-align: center;
+  }
+  .loading-text .status {
+    font-size: 22px;
+    font-style: italic;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .loading-text .step {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--ink-soft);
+  }
 
-.bottom-actions {
-display: flex;
-flex-direction: column;
-gap: 10px;
-margin-top: 8px;
-}
+  .dots {
+    display: inline-flex;
+    gap: 4px;
+    margin-left: 4px;
+  }
+  .dots span {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 1.4s ease-in-out infinite;
+  }
+  .dots span:nth-child(2) { animation-delay: 0.2s; }
+  .dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes pulse {
+    0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+    40% { opacity: 1; transform: scale(1.2); }
+  }
 
-.copy-feedback {
-text-align: center;
-font-size: 13px;
-color: var(–green);
-font-family: ‘JetBrains Mono’, monospace;
-text-transform: uppercase;
-letter-spacing: 0.1em;
-height: 16px;
-}
+  /* === RESULTS STATE === */
+  .results {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: fadeUp 0.5s ease;
+  }
 
-/* === ERROR STATE === */
-.error {
-background: rgba(200,85,61,0.08);
-border: 1px solid rgba(200,85,61,0.2);
-border-radius: 14px;
-padding: 16px 20px;
-color: var(–accent);
-font-size: 14px;
-line-height: 1.5;
-}
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
-/* === API KEY SETUP === */
-.setup {
-background: var(–bg-card);
-border-radius: 16px;
-padding: 24px;
-box-shadow: var(–shadow);
-margin-bottom: 16px;
-}
-.setup h3 {
-font-size: 20px;
-font-weight: 500;
-margin-bottom: 8px;
-letter-spacing: -0.02em;
-}
-.setup p {
-font-size: 13px;
-color: var(–ink-soft);
-line-height: 1.5;
-margin-bottom: 14px;
-}
-.setup input {
-width: 100%;
-padding: 12px 14px;
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 13px;
-border: 1px solid var(–line);
-border-radius: 10px;
-background: var(–bg);
-color: var(–ink);
-margin-bottom: 12px;
-}
-.setup input:focus { outline: 2px solid var(–accent); outline-offset: -1px; border-color: transparent; }
-.setup .small {
-font-size: 11px;
-color: var(–ink-soft);
-margin-top: 10px;
-}
-.setup .small a { color: var(–accent); }
+  .result-hero {
+    background: var(--bg-card);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
 
-.hidden { display: none !important; }
+  .result-image-wrap {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+  }
+  .result-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .result-image-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.5));
+  }
 
-/* hidden file input */
-#fileInput { display: none; }
+  .meal-title {
+    position: absolute;
+    bottom: 16px;
+    left: 20px;
+    right: 20px;
+    color: white;
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    z-index: 1;
+    font-style: italic;
+  }
+
+  .calorie-strip {
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-top: 1px solid var(--line);
+  }
+  .calorie-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--ink-soft);
+  }
+  .calorie-value {
+    font-size: 42px;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+  }
+  .calorie-value .unit {
+    font-size: 14px;
+    color: var(--ink-soft);
+    font-weight: 400;
+    margin-left: 4px;
+  }
+
+  .macros {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .macro {
+    background: var(--bg-card);
+    border-radius: 16px;
+    padding: 16px 14px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .macro::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .macro.protein::before { background: var(--accent); }
+  .macro.carbs::before { background: var(--accent-soft); }
+  .macro.fat::before { background: var(--green); }
+
+  .macro-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+  }
+  .macro-value {
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .macro-value .unit {
+    font-size: 11px;
+    color: var(--ink-soft);
+    font-weight: 400;
+    margin-left: 2px;
+  }
+  .macro-pct {
+    font-size: 11px;
+    color: var(--ink-soft);
+    margin-top: 4px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .section {
+    background: var(--bg-card);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+  }
+
+  .section-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+
+  .food-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    gap: 12px;
+  }
+  .food-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .food-item:first-child { padding-top: 0; }
+
+  .food-name {
+    font-size: 16px;
+    flex: 1;
+  }
+  .food-amount {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  .food-cal {
+    font-size: 14px;
+    font-weight: 500;
+    text-align: right;
+    min-width: 60px;
+  }
+
+  .micros-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 16px;
+  }
+  .micro {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    padding: 4px 0;
+  }
+  .micro-label { color: var(--ink-soft); }
+  .micro-value { font-family: 'JetBrains Mono', monospace; }
+
+  .confidence-note {
+    font-size: 12px;
+    color: var(--ink-soft);
+    font-style: italic;
+    line-height: 1.4;
+    padding: 12px 16px;
+    background: rgba(200,85,61,0.06);
+    border-radius: 10px;
+  }
+
+  .bottom-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+  }
+
+  .copy-feedback {
+    text-align: center;
+    font-size: 13px;
+    color: var(--green);
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    height: 16px;
+  }
+
+  /* === ERROR STATE === */
+  .error {
+    background: rgba(200,85,61,0.08);
+    border: 1px solid rgba(200,85,61,0.2);
+    border-radius: 14px;
+    padding: 16px 20px;
+    color: var(--accent);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* === API KEY SETUP === */
+  .setup {
+    background: var(--bg-card);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+    margin-bottom: 16px;
+  }
+  .setup h3 {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+  .setup p {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+  .setup input {
+    width: 100%;
+    padding: 12px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .setup input:focus { outline: 2px solid var(--accent); outline-offset: -1px; border-color: transparent; }
+  .setup .small {
+    font-size: 11px;
+    color: var(--ink-soft);
+    margin-top: 10px;
+  }
+  .setup .small a { color: var(--accent); }
+
+  .hidden { display: none !important; }
+
+  /* hidden file input */
+  #fileInput { display: none; }
 </style>
-
 </head>
 <body>
 <div class="app">
-  <header>
-    <div class="logo">Plate</div>
-    <div class="tagline">AI Meal Analysis</div>
+  <header class="with-nav">
+    <div>
+      <div class="logo">Plate</div>
+      <div class="tagline">AI Meal Analysis</div>
+    </div>
+    <div class="nav-icons" id="navIcons">
+      <button class="nav-btn" id="historyNavBtn" title="History">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span class="badge hidden" id="todayBadge"></span>
+      </button>
+      <button class="nav-btn hidden" id="homeNavBtn" title="Home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </button>
+    </div>
   </header>
 
   <!-- SETUP / API KEY -->
-
   <div id="setupView" class="setup hidden">
     <h3>One-time setup</h3>
     <p>Paste your Anthropic API key. It's stored only on this device and never sent anywhere except Anthropic.</p>
@@ -520,7 +784,6 @@ margin-top: 10px;
   </div>
 
   <!-- CAPTURE -->
-
   <div id="captureView" class="capture-zone hidden">
     <div class="capture-art">
       <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -548,8 +811,37 @@ margin-top: 10px;
     </div>
   </div>
 
-  <!-- LOADING -->
+  <!-- PREVIEW (with optional notes) -->
+  <div id="previewView" class="preview hidden">
+    <div class="preview-image-wrap">
+      <img id="previewImage" alt="">
+    </div>
+    <div class="notes-card">
+      <div class="notes-label">
+        <span class="lbl">Add Context</span>
+        <span class="optional">optional</span>
+      </div>
+      <textarea
+        id="notesInput"
+        class="notes-input"
+        placeholder="e.g. 'homemade with olive oil', 'I ate only half', 'whole wheat pasta'..."
+        rows="3"></textarea>
+      <div class="notes-hints">
+        <strong>Tips that help accuracy:</strong> portion eaten, cooking method, specific ingredients, restaurant name, or anything not visible in the photo.
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary" id="analyzeBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        Analyze Meal
+      </button>
+      <button class="btn btn-secondary" id="retakeBtn">
+        Retake or Choose Different Photo
+      </button>
+    </div>
+  </div>
 
+  <!-- LOADING -->
   <div id="loadingView" class="loading hidden">
     <img id="loadingImage" class="loading-image" alt="">
     <div class="loading-text">
@@ -562,8 +854,10 @@ margin-top: 10px;
   </div>
 
   <!-- RESULTS -->
-
   <div id="resultsView" class="results hidden"></div>
+
+  <!-- HISTORY -->
+  <div id="historyView" class="history hidden"></div>
 
   <input type="file" id="fileInput" accept="image/*" capture="environment">
 </div>
@@ -575,12 +869,29 @@ const STORAGE_KEY = 'plate_api_key_v1';
 const views = {
   setup: document.getElementById('setupView'),
   capture: document.getElementById('captureView'),
+  preview: document.getElementById('previewView'),
   loading: document.getElementById('loadingView'),
   results: document.getElementById('resultsView'),
+  history: document.getElementById('historyView'),
 };
 function show(name) {
   Object.entries(views).forEach(([k, el]) => el.classList.toggle('hidden', k !== name));
+  // Toggle nav button visibility
+  const onHistory = name === 'history';
+  const onSetup = name === 'setup';
+  document.getElementById('navIcons').classList.toggle('hidden', onSetup);
+  document.getElementById('historyNavBtn').classList.toggle('hidden', onHistory);
+  document.getElementById('homeNavBtn').classList.toggle('hidden', !onHistory);
+  if (name === 'capture') updateTodayBadge();
 }
+
+document.getElementById('historyNavBtn').addEventListener('click', () => {
+  renderHistory();
+  show('history');
+});
+document.getElementById('homeNavBtn').addEventListener('click', () => {
+  show('capture');
+});
 
 // ---------- API key ----------
 function getKey() { return localStorage.getItem(STORAGE_KEY); }
@@ -610,8 +921,34 @@ document.getElementById('uploadBtn').addEventListener('click', () => {
 fileInput.addEventListener('change', async (e) => {
   const file = e.target.files[0];
   if (!file) return;
-  await analyzeImage(file);
+  await showPreview(file);
   fileInput.value = '';
+});
+
+// Holds the resized image and metadata between preview and analysis
+let pendingScan = null;
+
+async function showPreview(file) {
+  const rawDataURL = await fileToDataURL(file);
+  const resizedDataURL = await resizeImage(rawDataURL);
+  const [meta, base64] = resizedDataURL.split(',');
+  const mediaType = meta.match(/data:(.*?);/)[1];
+
+  pendingScan = { base64, mediaType, imgURL: resizedDataURL };
+  document.getElementById('previewImage').src = resizedDataURL;
+  document.getElementById('notesInput').value = '';
+  show('preview');
+}
+
+document.getElementById('analyzeBtn').addEventListener('click', async () => {
+  if (!pendingScan) return;
+  const notes = document.getElementById('notesInput').value.trim();
+  await analyzeImage(pendingScan, notes);
+});
+
+document.getElementById('retakeBtn').addEventListener('click', () => {
+  pendingScan = null;
+  show('capture');
 });
 
 // ---------- Image processing ----------
@@ -677,8 +1014,11 @@ Rules:
 - Sum of food calories should approximately equal totals.calories
 - Use "low" confidence if the image is blurry, poorly lit, or ambiguous`;
 
-async function callClaude(base64Data, mediaType) {
+async function callClaude(base64Data, mediaType, userNotes) {
   const key = getKey();
+  const notesBlock = userNotes
+    ? `\n\nThe user provided this additional context about the meal — weight it heavily when it conflicts with what the image alone would suggest:\n"""\n${userNotes}\n"""`
+    : '';
   const res = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
@@ -694,7 +1034,7 @@ async function callClaude(base64Data, mediaType) {
         role: 'user',
         content: [
           { type: 'image', source: { type: 'base64', media_type: mediaType, data: base64Data } },
-          { type: 'text', text: ANALYSIS_PROMPT }
+          { type: 'text', text: ANALYSIS_PROMPT + notesBlock }
         ]
       }]
     })
@@ -705,35 +1045,235 @@ async function callClaude(base64Data, mediaType) {
   }
   const data = await res.json();
   const text = data.content.map(b => b.type === 'text' ? b.text : '').join('').trim();
-  // strip code fences if present
   const cleaned = text.replace(/^```(?:json)?\s*/i, '').replace(/\s*```\s*$/, '');
   return JSON.parse(cleaned);
 }
 
-async function analyzeImage(file) {
+// ---------- History (localStorage) ----------
+const HISTORY_KEY = 'plate_history_v1';
+const MAX_HISTORY = 100; // cap to keep storage manageable
+
+function loadHistory() {
+  try {
+    return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+  } catch {
+    return [];
+  }
+}
+
+function persistHistory(list) {
+  try {
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(list));
+  } catch (e) {
+    // Storage full — drop oldest entries and retry
+    const trimmed = list.slice(0, Math.floor(list.length * 0.7));
+    try {
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(trimmed));
+    } catch {
+      console.warn('Could not save history');
+    }
+  }
+}
+
+async function makeThumb(dataURL, size = 200) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext('2d');
+      // Crop to square (center)
+      const min = Math.min(img.width, img.height);
+      const sx = (img.width - min) / 2;
+      const sy = (img.height - min) / 2;
+      ctx.drawImage(img, sx, sy, min, min, 0, 0, size, size);
+      resolve(canvas.toDataURL('image/jpeg', 0.7));
+    };
+    img.onerror = () => resolve(dataURL);
+    img.src = dataURL;
+  });
+}
+
+async function saveToHistory(result, fullImageURL, notes) {
+  const thumb = await makeThumb(fullImageURL);
+  const entry = {
+    id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+    timestamp: Date.now(),
+    thumb,
+    notes: notes || '',
+    meal_name: result.meal_name,
+    confidence: result.confidence,
+    confidence_note: result.confidence_note || '',
+    foods: result.foods,
+    totals: result.totals,
+  };
+  const list = loadHistory();
+  list.unshift(entry);
+  if (list.length > MAX_HISTORY) list.length = MAX_HISTORY;
+  persistHistory(list);
+  updateTodayBadge();
+}
+
+function deleteHistoryEntry(id) {
+  const list = loadHistory().filter(e => e.id !== id);
+  persistHistory(list);
+  renderHistory();
+  updateTodayBadge();
+}
+
+function isSameDay(ts, date) {
+  const d = new Date(ts);
+  return d.getFullYear() === date.getFullYear()
+    && d.getMonth() === date.getMonth()
+    && d.getDate() === date.getDate();
+}
+
+function updateTodayBadge() {
+  const badge = document.getElementById('todayBadge');
+  const today = new Date();
+  const count = loadHistory().filter(e => isSameDay(e.timestamp, today)).length;
+  if (count > 0) {
+    badge.textContent = count;
+    badge.classList.remove('hidden');
+  } else {
+    badge.classList.add('hidden');
+  }
+}
+
+function formatDayHeader(date) {
+  const today = new Date();
+  const yesterday = new Date(); yesterday.setDate(today.getDate() - 1);
+  if (isSameDay(date.getTime(), today)) return 'Today';
+  if (isSameDay(date.getTime(), yesterday)) return 'Yesterday';
+  return date.toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' });
+}
+
+function formatTime(ts) {
+  return new Date(ts).toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+}
+
+function renderHistory() {
+  const view = views.history;
+  const list = loadHistory();
+
+  if (list.length === 0) {
+    view.innerHTML = `
+      <div class="history-header">
+        <h2>Your <em>history</em></h2>
+      </div>
+      <div class="empty-history">
+        <h3>No meals yet</h3>
+        <p>Scanned meals will appear here, grouped by day with running totals.</p>
+      </div>
+    `;
+    return;
+  }
+
+  // Group entries by day
+  const groups = {};
+  list.forEach(e => {
+    const d = new Date(e.timestamp);
+    const key = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+    if (!groups[key]) groups[key] = { date: d, entries: [] };
+    groups[key].entries.push(e);
+  });
+
+  const groupHTML = Object.values(groups).map(g => {
+    const totals = g.entries.reduce((acc, e) => ({
+      cal: acc.cal + (e.totals.calories || 0),
+      p: acc.p + (e.totals.protein_g || 0),
+      c: acc.c + (e.totals.carbs_g || 0),
+      f: acc.f + (e.totals.fat_g || 0),
+    }), { cal: 0, p: 0, c: 0, f: 0 });
+
+    const itemsHTML = g.entries.map(e => `
+      <div class="meal-card" data-id="${e.id}">
+        <img class="meal-thumb" src="${e.thumb}" alt="">
+        <div class="meal-card-body">
+          <div class="meal-card-title">${escapeHtml(e.meal_name)}</div>
+          <div class="meal-card-meta">
+            <span>${formatTime(e.timestamp)}</span>
+            <span>${e.totals.calories} kcal</span>
+            <span>P ${e.totals.protein_g}·C ${e.totals.carbs_g}·F ${e.totals.fat_g}</span>
+          </div>
+        </div>
+        <button class="meal-delete" data-delete="${e.id}" aria-label="Delete">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/></svg>
+        </button>
+      </div>
+    `).join('');
+
+    return `
+      <div class="day-group">
+        <div class="day-header">
+          <span class="day-name">${formatDayHeader(g.date)}</span>
+          <span class="day-totals">
+            <strong>${totals.cal}</strong> kcal · P ${totals.p}·C ${totals.c}·F ${totals.f}
+          </span>
+        </div>
+        ${itemsHTML}
+      </div>
+    `;
+  }).join('');
+
+  view.innerHTML = `
+    <div class="history-header">
+      <h2>Your <em>history</em></h2>
+    </div>
+    ${groupHTML}
+  `;
+
+  // Wire up delete buttons
+  view.querySelectorAll('[data-delete]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const id = btn.getAttribute('data-delete');
+      if (confirm('Delete this meal from history?')) {
+        deleteHistoryEntry(id);
+      }
+    });
+  });
+
+  // Wire up card taps to reopen the meal
+  view.querySelectorAll('.meal-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const id = card.getAttribute('data-id');
+      const entry = loadHistory().find(e => e.id === id);
+      if (entry) {
+        // Reconstruct the result object and show it
+        const result = {
+          meal_name: entry.meal_name,
+          confidence: entry.confidence,
+          confidence_note: entry.confidence_note,
+          foods: entry.foods,
+          totals: entry.totals,
+        };
+        renderResults(result, entry.thumb);
+      }
+    });
+  });
+}
+
+async function analyzeImage(scan, userNotes) {
   show('loading');
   const loadingImg = document.getElementById('loadingImage');
   const stepEl = document.getElementById('loadingStep');
+  loadingImg.src = scan.imgURL;
 
   try {
-    stepEl.textContent = 'Processing image';
-    const rawDataURL = await fileToDataURL(file);
-    loadingImg.src = rawDataURL;
-
-    const resizedDataURL = await resizeImage(rawDataURL);
-    const [meta, base64] = resizedDataURL.split(',');
-    const mediaType = meta.match(/data:(.*?);/)[1];
-
-    stepEl.textContent = 'Identifying ingredients';
-    await new Promise(r => setTimeout(r, 300)); // smooth transition
+    stepEl.textContent = userNotes ? 'Reading your notes' : 'Identifying ingredients';
+    await new Promise(r => setTimeout(r, 300));
 
     stepEl.textContent = 'Estimating portions';
-    const result = await callClaude(base64, mediaType);
+    const result = await callClaude(scan.base64, scan.mediaType, userNotes);
 
     stepEl.textContent = 'Calculating nutrition';
     await new Promise(r => setTimeout(r, 200));
 
-    renderResults(result, resizedDataURL);
+    saveToHistory(result, scan.imgURL, userNotes);
+    renderResults(result, scan.imgURL);
+    pendingScan = null;
   } catch (err) {
     renderError(err);
   }
@@ -875,6 +1415,5 @@ if (getKey()) {
   show('setup');
 }
 </script>
-
 </body>
 </html>
